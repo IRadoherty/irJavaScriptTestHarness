@@ -105,6 +105,22 @@ const getMenuItems = (props) => {
       leftIcon: <DashboardIcon />,
     },
     {
+      primaryText: intl.formatMessage({ id: 'MortgageRuleApp', defaultMessage: 'Rule Apps' }),
+      primaryTogglesNestedList: true,
+      leftIcon: <Web />,
+      nestedItems: [
+        {
+          value: '/MortgageRuleApp',
+          visible: isAuthorised,
+          primaryText: intl.formatMessage({
+            id: 'MortgageRuleApp',
+            defaultMessage: 'Mortgage',
+          }),
+          leftIcon: <ChatBubble />,
+        },
+      ]
+    },
+    {
       primaryText: intl.formatMessage({ id: 'demos', defaultMessage: 'Demos' }),
       primaryTogglesNestedList: true,
       leftIcon: <Web />,
