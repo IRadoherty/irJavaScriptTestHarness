@@ -22,9 +22,7 @@ jobs:
         node-version: '14.x'
 
     - name: npm install, build
-	env:
 
-         CI: false
       run: |
        
         npm install
