@@ -155,7 +155,6 @@ const MyAccount = () => {
             />
             <Typography variant="h6">{email}</Typography>
           </div>
-
           <Zoom in={hasChange}>
             <Fab
               onClick={handleSave}
