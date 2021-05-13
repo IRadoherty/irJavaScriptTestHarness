@@ -59,6 +59,8 @@ const MortgageRuleApp = () => {
     return () => clearInterval(interval);
   }, [isActive, milliSeconds]);
 
+
+  
   function RunRules() { 
     toggle() 
     const URL = "https://irjsmortgageruleapp.azurewebsites.net/api/HttpTrigger1?code=YGYQb45f5BP1R2Su2RTAK2RqtCyaaq6LmUEQZ6/9/DFvxQ8KkTiweA==";
