@@ -7,8 +7,6 @@ import Divider from '@material-ui/core/Divider'
 import { useIntl } from 'react-intl'
 
 import list from './data.json'
-import { IconButton } from '@material-ui/core'
-import { Add } from '@material-ui/icons'
 
 const fields = [
   {

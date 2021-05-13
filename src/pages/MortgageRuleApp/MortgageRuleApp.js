@@ -1,7 +1,6 @@
 import Button from '@material-ui/core/Button'
 import Page from 'material-ui-shell/lib/containers/Page'
-import Paper from '@material-ui/core/Paper'
-import Scrollbar from 'material-ui-shell/lib/components/Scrollbar'
+
 import React, { useState, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import TextField from '@material-ui/core/TextField'
@@ -44,7 +43,7 @@ const MortgageRuleApp = () => {
   const [APR, setAPR] = useState('')
   const [totalCost, setTotalCost] = useState('')
   const [montlyPayment, setMontlyPayment] = useState('')
-  const [PaymentSummary, setPaymentSummary] = useState('')
+
 
   const [milliSeconds, setMilliSeconds] = useState(0);
   const [isActive, setIsActive] = useState(false);
