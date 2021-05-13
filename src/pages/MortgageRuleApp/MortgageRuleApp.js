@@ -7,7 +7,6 @@ import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 
-
 const useStyles = makeStyles((theme) => ({
   form: {
     marginTop: theme.spacing(3),
@@ -43,7 +42,6 @@ const MortgageRuleApp = () => {
   const [APR, setAPR] = useState('')
   const [totalCost, setTotalCost] = useState('')
   const [montlyPayment, setMontlyPayment] = useState('')
-
 
   const [milliSeconds, setMilliSeconds] = useState(0);
   const [isActive, setIsActive] = useState(false);
