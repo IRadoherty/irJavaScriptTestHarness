@@ -1,0 +1,14 @@
+{
+    "azureFunctions.deploySubpath": ".",
+    "azureFunctions.postDeployTask": "npm install",
+    "azureFunctions.projectLanguage": "JavaScript",
+    "azureFunctions.projectRuntime": "~3",
+    "debug.internalConsoleOptions": "neverOpen",
+    "azureFunctions.preDeployTask": "npm prune",
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/81a71abd-07c3-4bbb-90b8-4d799798ed0b/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/irJavaScriptTestingHarness",
+    "appService.deploySubpath": "."
+}

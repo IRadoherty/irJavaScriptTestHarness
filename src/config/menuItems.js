@@ -105,7 +105,7 @@ const getMenuItems = (props) => {
       leftIcon: <DashboardIcon />,
     },
     {
-      primaryText: intl.formatMessage({ id: 'MortgageRuleApp', defaultMessage: 'Rule Apps' }),
+      primaryText: intl.formatMessage({ id: 'ruleApps', defaultMessage: 'Rule Apps' }),
       primaryTogglesNestedList: true,
       leftIcon: <Web />,
       nestedItems: [
@@ -118,8 +118,27 @@ const getMenuItems = (props) => {
           }),
           leftIcon: <ChatBubble />,
         },
+        {
+          value: '/MortgageRuleAppIX',
+          visible: isAuthorised,
+          primaryText: intl.formatMessage({
+            id: 'MortgageRuleAppIX',
+            defaultMessage: 'MortgageIX',
+          }),
+          leftIcon: <ChatBubble />,
+        },
+        {
+          value: '/EarthDemo',
+          visible: isAuthorised,
+          primaryText: intl.formatMessage({
+            id: 'EarthDemo',
+            defaultMessage: 'EarthDemo',
+          }),
+          leftIcon: <ChatBubble />,
+        },
       ]
     },
+    
     {
       primaryText: intl.formatMessage({ id: 'demos', defaultMessage: 'Demos' }),
       primaryTogglesNestedList: true,

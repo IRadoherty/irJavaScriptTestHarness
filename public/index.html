@@ -15,6 +15,70 @@
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    
+    <script src="%PUBLIC_URL%/EarthDemo.min.js"></script>
+
+    <!--<script language="javascript">
+    //  function continentValueList() { 
+    //    var session = inrule.createRuleSession();
+    //    var list = session.dataManager.getValueList('ContinentVL');
+     //   var listItems = list.getValues();
+    //    return listItems
+    //} </script> 
+    -->
+    
+    <script language="javascript">
+      function continentInlineTable() { 
+        var session = inrule.createRuleSession();
+        var table = session.dataManager.getInlineTable('Continents', null);
+      return table
+    } </script>
+    </script>
+    <script language="javascript">
+      function countryInlineTable(country) { 
+        var session = inrule.createRuleSession();
+        var table = session.dataManager.getInlineTable(country, null);
+      return table;
+    }
+    </script>
+
+    <script language="javascript">
+      function statesInlineTable(stateInlineTable) { 
+        var session = inrule.createRuleSession();
+        var table = session.dataManager.getInlineTable("US_States", null);                   
+        return table;
+    }
+    </script>
+
+    <script language="javascript">
+      function pullPopulationByRule(populationOBJ) { 
+        var all = {};
+        var session = inrule.createRuleSession();
+        var entity = session.createEntity('Population', populationOBJ);
+        entity.executeRuleSet('PopulationEval', [], function(log){
+          all.log = log.messages; } );
+          all.populationOBJ = populationOBJ;
+      return all;
+    }
+    </script>
+
+<script language="javascript">
+    function runRules(loanAmount, termInYears, APR) {
+        var mortgage = {};
+        mortgage.LoanInfo = {};
+        mortgage.LoanInfo.Principal = loanAmount;
+        mortgage.LoanInfo.TermInYears = termInYears;
+        mortgage.LoanInfo.APR = APR;
+        var session = inrule.createRuleSession();
+        var entity = session.createEntity('Mortgage', mortgage);
+        session.applyRules(function (log) {
+        });
+      return mortgage.PaymentSummary;
+    }
+</script> 
+
+
+
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.

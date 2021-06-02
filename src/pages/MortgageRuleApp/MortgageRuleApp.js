@@ -5,6 +5,7 @@ import { useIntl } from 'react-intl'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
+import '@fontsource/roboto'
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -13,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     width: '500px',
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    margin: theme.spacing(2.5, 0, 2),
     alignItems: 'left',
   },
   container: {
@@ -26,10 +27,22 @@ const useStyles = makeStyles((theme) => ({
     height: `100%`,
   },
   paymentSummaryClass:{
-    align: 'right',
     width: '500px',
+    left: '400px',
+    'margin-top': '-308px',
     position: 'relative'
+  },
+  textFieldClass:{
+    marginTop: theme.spacing(0),
+    height: '50px',
+    'font-weight': 'normal'
+  },
+  paymentSummaryTypography:{
+    alignItems: 'center',
+    marginTop: theme.spacing(-1),
+    height: '50px',
   }
+
 }))
 
 const MortgageRuleApp = () => {
@@ -42,18 +55,21 @@ const MortgageRuleApp = () => {
   const [totalCost, setTotalCost] = useState('')
   const [montlyPayment, setMontlyPayment] = useState('')
 
-  const [milliSeconds, setMilliSeconds] = useState(0);
-  const [isActive, setIsActive] = useState(false);
+  const [milliSeconds, setMilliSeconds] = useState(0)
+  const [isActive, setIsActive] = useState(false)
  
-  function toggle() { setIsActive(!isActive); }
-  function reset() { setMilliSeconds(0); setIsActive(false); }
+  function toggle() { setIsActive(!isActive) }
+  function reset() { setMilliSeconds(0); setIsActive(false) }
 
   useEffect(() => {
+
+
+    
     let interval = null;
     if (isActive) { interval = setInterval(() => { setMilliSeconds(milliSeconds => milliSeconds + 1); }, 1);
     } else if (!isActive && milliSeconds !== 0) { clearInterval(interval); }
     return () => clearInterval(interval);
-  }, [isActive, milliSeconds]);
+  }, [isActive, milliSeconds])
 
 
   
@@ -67,12 +83,12 @@ const MortgageRuleApp = () => {
           body: JSON.stringify(JSONDATA)
       };
       fetch(URL, requestOptions)
-          .then(response => response.json())
+          .then(response => response.json())   
           .then(data => {
             setMontlyPayment(data.PaymentSummary.MonthlyPayment)
             setTotalCost(data.PaymentSummary.TotalCost)
           })
-      toggle() 
+     
   }
 
   return (
@@ -84,44 +100,41 @@ const MortgageRuleApp = () => {
           <button onClick={toggle}>{isActive ? 'Pause' : 'Start'} </button>
           <button className="button" onClick={reset}>Reset</button>
         </div>
-   
-      <Typography component="h3" variant="h6">
-          {intl.formatMessage({ id: 'loan_intro', defaultMessage: 'This sample demonstrates one rule app calling another. The mortgage calculator has been modified to look up the APR based on the term. The lookup is performed using an Execute JavaScript Function action. The function uses JQuery to call to a service that is hosted in NodeJS. The service returns the APR by leveraging another JavaScript rule app' })}
+        <Typography component="h3" variant="h6">
+          {intl.formatMessage({ id: 'loan_intro', defaultMessage: 'This mortgage rule application example uses an Azure Function to call a rule applicatinm using irJavascript' })}
         </Typography>
+        <br/>
 
-         <form className={classes.form}  noValidate>   
+         <form className={classes.form}  >   
          <Typography component="h1" variant="h5"> {intl.formatMessage({ id: 'monthlyPayment', defaultMessage: 'Montly Payment' })} </Typography>
           <br/>
-        <TextField
-              value={principal} onInput={(e) => setPrincipal(e.target.value)}
-              variant="outlined" required id="principal"
-              label={intl.formatMessage({ id: 'principal', defaultMessage: 'Principal' })} name="principal" />
-         <br/> <br/>
-         <TextField
-              value={termInYears} onInput={(e) => setTermInYears(e.target.value)}
-              variant="outlined" required id="termInYears"
-              label={intl.formatMessage({ id: 'termInYearsLabel', defaultMessage: 'Term In Years' })}  name="termInYears" />
+
+          <TextField id="standard-basic"  value={principal} onInput={(e) => setPrincipal(e.target.value)}
+          required label={intl.formatMessage({ id: 'standard-basic', defaultMessage: 'Principal' })} />
+          <br/> <br/>
+          <TextField id="outlined-basic" value={termInYears} onInput={(e) => setTermInYears(e.target.value)}
+          required label={intl.formatMessage({ id: 'termInYearsLabel', defaultMessage: 'Term In Years' })}  />
           <br/> <br/>       
-          <TextField
-              value={APR} onInput={(e) => setAPR(e.target.value)}
-              variant="outlined" required id="APR"
-              label={intl.formatMessage({ id: 'APRLabel', defaultMessage: 'APR' })} name="APR" />
+          <TextField id="outlined-basic"  value={APR} onInput={(e) => setAPR(e.target.value)}
+          required label={intl.formatMessage({ id: 'APRLabel', defaultMessage: 'APR' })}  />
           <br/> 
           <Button onClick={RunRules}  variant="contained" color="primary" className={classes.submit}>
-              {intl.formatMessage({ id: 'submit_mortgage_form', defaultMessage: 'Calculate Mortgage' })}
-            </Button>
+          {intl.formatMessage({ id: 'submit_mortgage_form', defaultMessage: 'Calculate Mortgage' })}
+          </Button>
 
          </form>
 
-         <div className = "paymentSummaryClass">
-         <Typography component="h1" variant="h5">{intl.formatMessage({ id: 'paymentSummary', defaultMessage: 'Payment Summary' })} </Typography>
-         <br/>
-          <Typography component="h3" variant="h8"> {intl.formatMessage({ id: 'loanInformationLabel', defaultMessage: 'Loan Information' })} </Typography>
-          <TextField  value={montlyPayment} disabled variant="outlined" id="montlyPayment" />
+         <div className = {classes.paymentSummaryClass}>
+         <Typography component="h1" variant="h5" className = {classes.paymentSummaryTypography}>
+           {intl.formatMessage({ id: 'paymentSummary', defaultMessage: 'Payment Summary' })} </Typography>
+           
+         <TextField id="outlined-basic"disabled  value={montlyPayment} onChange={toggle}
+           label={intl.formatMessage({ id: 'montlyPaymentLabel',  defaultMessage: 'Montly Payment' })} />
          <br/> <br/> 
-         <Typography component="h3" variant="h8"> {intl.formatMessage({ id: 'totalCostLabel', defaultMessage: 'Total Cost' })} </Typography> 
-         <TextField  value={totalCost} disabled variant="outlined" id="totalCost" />
-         <br/> <br/>
+         <TextField id="outlined-basic" disabled  value={totalCost} 
+          label={intl.formatMessage({ id: 'totalCostLabel', defaultMessage: 'Total Cost' })}  />
+         <br/> <br/> 
+      
          </div>
         </div>
 
