@@ -25,13 +25,23 @@ import Grid from '@material-ui/core/Grid'
             marginRight: theme.spacing(5),
             marginTop: theme.spacing(5),
             flexDirection: 'column',
-            alignItems: 'center',
+            alignItems: 'left',
             justifyContent: 'left',
             height: `100%`,
+            width: '400px',
+            position: 'relative'
         },
-        EarthIMG: "250px" ,
+        EarthIMG: {
+            width: "250px" ,
+            alignItems: 'center',
+        },
+        PageTopText: {
+            marginLeft: theme.spacing(5),
+            marginRight: theme.spacing(5),
+            marginTop: theme.spacing(5),
+        },
         logging:{
-            width: '500px',
+            width: '450px',
             left: '400px',
             'margin-top': '-308px',
             position: 'relative'
@@ -93,23 +103,12 @@ const EarthDemo = () => {
     var populationOBJ = {}
     var [clear, setClear] = useState()
 
-    const [check, setCheck] = useState({  checkedC: false })
-    const [showResults, setShowResults] = useState(false)
 
-    const handleChange = (event) => {
-        setCheck({ [event.target.name]: event.target.checked })
-        setShowResults(true)
-      }
-
+   
       useEffect(() => { setContinents(window.continentInlineTable().map((continent) => ( <option value={continent.Name}>{continent.Name}</option>)))
     },[])
     
-    const Results = () => (
-        
-        <div>
-      {logText}
-        </div>
-      )
+   
     const handleContinentChange = (event) => { 
         setCountries()
         setStates(undefined); setState(undefined)
@@ -154,21 +153,26 @@ const EarthDemo = () => {
             setPopulationText("The population of " + populationOBJ.locationValue + " is: " + populationReturn.populationOBJ.PopulationResult +".") }
         
         else(setPopulationText("Invalid Selection")) }
-
-    function clearForm(){ clear = "clear"
-        setStates(undefined); setState(undefined)
-        setCountries(undefined); setCountry(undefined)
-        setPopulationText("Form cleared, select new continent.")
-        setContinents(window.continentInlineTable().map((continent) => ( <option value={continent.Name}>{continent.Name}</option>)))
-
-    }
+        function clearForm(){ clear = "clear"
+        setLogText()
+                setStates(undefined); setState(undefined)
+                setCountries(undefined); setCountry(undefined)
+                setPopulationText("Form cleared, select new continent.")
+                setContinents(window.continentInlineTable().map((continent) => ( <option value={continent.Name}>{continent.Name}</option>)))
+            }
+   
     
     return (
         <Page pageTitle={intl.formatMessage({ id: 'Earth', defaultMessage: 'Earth' })} >
-        <div className={classes.container}>
-      
-            <Avatar style={{ width: 220, height: 220, marginTop: -40 }} alt="Earth" src="../img/earth.png"/>
             <br/>
+            <Typography component="h1" variant="h6" className = {classes.PageTopText}>
+           {intl.formatMessage({ id: 'paymentSummary', 
+           defaultMessage: 'This rule app uses irJavaScript to populate drop down values and run rules on the selected values.' })} </Typography>
+    
+            <br/>
+            <Container className={classes.container}>
+            <Avatar style={{ width: 220, height: 220, marginTop: -40 }} alt="Earth" src="../img/earth.png"/>
+           
             <FormControl className={classes.formControl}>
                 <InputLabel htmlFor="age-native-helper">Continents</InputLabel>
                 <NativeSelect id = "continentID" onChange={handleContinentChange} >
@@ -199,29 +203,14 @@ const EarthDemo = () => {
             <Button onClick={clearForm} variant="contained" color="primary" >
               {intl.formatMessage({ id: 'clearForm', defaultMessage: 'Clear Form' })}
             </Button> <br/> <br/> 
-            <div>
-                {populationText}
-            </div>
-            <div className = {classes.logging}>
-            <FormControl> 
-            <Typography component="div">
-            <FormHelperText>Logging</FormHelperText>
-            <Grid component="label" container alignItems="center" spacing={1}>
-            <Grid item>Off</Grid>
-            <Grid item>
-                <AntSwitch checked={check.checkedC} onChange={handleChange} name="checkedC" />
-          </Grid>
-          <Grid item>On</Grid>
-        </Grid>
-      </Typography>
-      </FormControl> 
             
-            <div>
-                
-                { showResults ? <Results /> : null }
-            </div>
-            </div>
-            </div>
+             {populationText}<br/> 
+
+            <div className={classes.logging}>
+            <div>If logging is set on the irJavaScript file, it will show here: </div><br/>
+               {logText} 
+                </div>
+            </Container>
         </Page>
         )
 }
