@@ -105,14 +105,15 @@ const EarthDemo = () => {
 
 
    
-      useEffect(() => { setContinents(window.continentInlineTable().map((continent) => ( <option value={continent.Name}>{continent.Name}</option>)))
+      useEffect(() => { setContinents(window.continentInlineTable().map((continent) => ( 
+      <option value={continent.Value}>{continent.Name}</option>)))
     },[])
     
    
     const handleContinentChange = (event) => { 
-        setCountries()
+        setCountries(undefined)
         setStates(undefined); setState(undefined)
-        setCountries(undefined); setCountry()
+        setCountries(undefined); setCountry(undefined)
         setContinent(event.target.value); continentChange(event.target.value) }
     const continentChange = (_continent) => { 
         switch(_continent) {
@@ -126,8 +127,10 @@ const EarthDemo = () => {
         enqueueSnackbar('No countries defined', { variant: 'warning', autoHideDuration: 1000, anchorOrigin: { vertical: 'top', horizontal: 'center', }, }) 
         }
     }
-    const countryValues = (countryTable) => { setCountries(window.countryInlineTable(countryTable).map((country) => ( <option value={country.Name}>{country.Name}</option> )))}
-    const stateValues = (stateTable) => { setStates(window.statesInlineTable(stateTable).map((state) => ( <option value={state.Name}>{state.Name}</option> )))}
+    const countryValues = (countryTable) => { setCountries(window.countryInlineTable(countryTable).map((country) => ( 
+    <option value={country.Value}>{country.Name}</option> )))}
+    const stateValues = (stateTable) => { setStates(window.statesInlineTable(stateTable).map((state) => ( 
+    <option value={state.Value}>{state.Name}</option> )))}
     const handleCountryChange = (event) => { var countryVar = event.target.value; setCountry(countryVar)
             switch(countryVar) { 
                 case countryVar = "United States": stateValues("US_States"); break
@@ -146,7 +149,7 @@ const EarthDemo = () => {
         else if (continent !== undefined) {  populationOBJ.locationText = "continent"; populationOBJ.locationValue  = continent  }
 
         setPopulationLocation(populationOBJ.locationValue)
-        if (populationOBJ.locationValue != undefined || populationOBJ.locationValue != null  ){ 
+        if (populationOBJ.locationValue !== undefined || populationOBJ.locationValue != null  ){ 
             
             populationReturn = window.pullPopulationByRule(populationOBJ)
             setLogText(populationReturn.log)
@@ -157,8 +160,9 @@ const EarthDemo = () => {
         setLogText()
                 setStates(undefined); setState(undefined)
                 setCountries(undefined); setCountry(undefined)
+                setContinents(undefined)
                 setPopulationText("Form cleared, select new continent.")
-                setContinents(window.continentInlineTable().map((continent) => ( <option value={continent.Name}>{continent.Name}</option>)))
+                setContinents(window.continentInlineTable().map((continent) => ( <option value={continent.Value}>{continent.Name}</option>)))
             }
    
     
@@ -192,7 +196,7 @@ const EarthDemo = () => {
             <FormControl className={classes.formControl}>
             <InputLabel htmlFor="age-native-helper">States</InputLabel>
                 <NativeSelect  onChange={handleStateChange}>
-                <option aria-label="None" value={states} /> {states}
+                <option aria-label="None" value={state} /> {states}
                 </NativeSelect>
                 <FormHelperText>Choose a state</FormHelperText>
             </FormControl> <br/> <br/>
