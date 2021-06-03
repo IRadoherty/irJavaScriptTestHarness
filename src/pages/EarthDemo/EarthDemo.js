@@ -204,7 +204,7 @@ const EarthDemo = () => {
               {intl.formatMessage({ id: 'clearForm', defaultMessage: 'Clear Form' })}
             </Button> <br/> <br/> 
             
-            <TextField>{populationText}</TextField><br/> 
+            <div>{populationText}</div><br/> 
 
             <div className={classes.logging}>
             <div>If logging is set on the irJavaScript file, it will show here: </div><br/>
