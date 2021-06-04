@@ -119,7 +119,6 @@ const EarthDemo = () => {
                 setContinents(window.continentInlineTable().map((continent) => ( <option value={continent.Value}>{continent.Name}</option>)))
             }
    
-    
     return (
         <Page pageTitle={intl.formatMessage({ id: 'Earth', defaultMessage: 'Earth' })} >
             <br/>
