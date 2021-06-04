@@ -2,22 +2,16 @@ import React, { useState, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import Page from 'material-ui-shell/lib/containers/Page'
 import { makeStyles } from '@material-ui/core/styles'
-import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container'
 import Button from '@material-ui/core/Button'
 import InputLabel from '@material-ui/core/InputLabel'
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
 import FormHelperText from '@material-ui/core/FormHelperText'
 import FormControl from '@material-ui/core/FormControl'
 import NativeSelect from '@material-ui/core/NativeSelect'
 import Avatar from '@material-ui/core/Avatar'
 import { useSnackbar } from 'notistack'
-import Switch from '@material-ui/core/Switch'
 import '@fontsource/roboto'
-import { withStyles } from '@material-ui/core/styles'
-import Grid from '@material-ui/core/Grid'
 
     const useStyles = makeStyles((theme) => ({
         container: {
@@ -47,42 +41,6 @@ import Grid from '@material-ui/core/Grid'
             position: 'relative'
           },
     } ))
-  
-
-    const AntSwitch = withStyles((theme) => ({
-        root: {
-          width: 28,
-          height: 16,
-          padding: 0,
-          display: 'flex',
-        },
-        switchBase: {
-          padding: 2,
-          color: theme.palette.grey[500],
-          '&$checked': {
-            transform: 'translateX(12px)',
-            color: theme.palette.common.white,
-            '& + $track': {
-              opacity: 1,
-              backgroundColor: theme.palette.primary.main,
-              borderColor: theme.palette.primary.main,
-            },
-          },
-        },
-        thumb: {
-          width: 12,
-          height: 12,
-          boxShadow: 'none',
-        },
-        track: {
-          border: `1px solid ${theme.palette.grey[500]}`,
-          borderRadius: 16 / 2,
-          opacity: 1,
-          backgroundColor: theme.palette.common.white,
-        },
-        checked: {},
-      }))(Switch);
-
 
 
 const EarthDemo = () => {
@@ -96,12 +54,9 @@ const EarthDemo = () => {
     var [country, setCountry] = useState()
     var [states, setStates] = useState()
     var [state, setState] = useState()
-    var [population, setPopulation] = useState()
-    var [populationLocation, setPopulationLocation] = useState()
     var [populationText, setPopulationText] = useState()
     var [logText, setLogText] = useState()
     var populationOBJ = {}
-    var [clear, setClear] = useState()
 
 
    
@@ -128,9 +83,9 @@ const EarthDemo = () => {
         }
     }
     const countryValues = (countryTable) => { setCountries(window.countryInlineTable(countryTable).map((country) => ( 
-    <option value={country.Value}>{country.Name}</option> )))}
+        <option value={country.Value}>{country.Name}</option> )))}
     const stateValues = (stateTable) => { setStates(window.statesInlineTable(stateTable).map((state) => ( 
-    <option value={state.Value}>{state.Name}</option> )))}
+        <option value={state.Value}>{state.Name}</option> )))}
     const handleCountryChange = (event) => { var countryVar = event.target.value; setCountry(countryVar)
             switch(countryVar) { 
                 case countryVar = "United States": stateValues("US_States"); break
@@ -148,7 +103,6 @@ const EarthDemo = () => {
         else if (country !== undefined) { populationOBJ.locationText = "country"; populationOBJ.locationValue  = country; populationOBJ.locationContinent = continent  }
         else if (continent !== undefined) {  populationOBJ.locationText = "continent"; populationOBJ.locationValue  = continent  }
 
-        setPopulationLocation(populationOBJ.locationValue)
         if (populationOBJ.locationValue !== undefined || populationOBJ.locationValue != null  ){ 
             
             populationReturn = window.pullPopulationByRule(populationOBJ)
@@ -156,7 +110,7 @@ const EarthDemo = () => {
             setPopulationText("The population of " + populationOBJ.locationValue + " is: " + populationReturn.populationOBJ.PopulationResult +".") }
         
         else(setPopulationText("Invalid Selection")) }
-        function clearForm(){ clear = "clear"
+        function clearForm(){ 
         setLogText()
                 setStates(undefined); setState(undefined)
                 setCountries(undefined); setCountry(undefined)
